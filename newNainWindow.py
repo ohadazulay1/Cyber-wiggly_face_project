@@ -21,6 +21,7 @@ import Emotion
 from graphics import Graphics
 
 class Ui_MainWindow(object):
+    cameraOn = False
     def __init__(self, firstWindow):
         self.MainWindow = firstWindow
         self.setupUi()
@@ -94,9 +95,11 @@ class Ui_MainWindow(object):
 
 
     def playOfflinePressed(self):
-        cp = Camera()
-        camThread = Thread(target=cp.mainProcess)
-        camThread.start()
+        if not Ui_MainWindow.cameraOn:
+            cp = Camera()
+            camThread = Thread(target=cp.mainProcess)
+            camThread.start()
+            Ui_MainWindow.cameraOn = True
 
         gr = Graphics("")
         gr.objectsManeger()
@@ -120,4 +123,13 @@ class Ui_MainWindow(object):
     def playOnlinePressed(self):
         clientHelper = ClientHelperForOnline.get_instance()
         selfUserName = UserNameClass.get_instance().getUserName()
-        clientHelper.connectToAnotherUser(selfUserName)
+        usertoPlayWith = clientHelper.connectToAnotherUser(selfUserName)
+
+        if not Ui_MainWindow.cameraOn:
+            cp = Camera()
+            camThread = Thread(target=cp.mainProcess)
+            camThread.start()
+            Ui_MainWindow.cameraOn = True
+
+        gr = Graphics(usertoPlayWith)
+        gr.objectsManeger()

@@ -30,6 +30,7 @@ class Graphics:
         self.onlineClient = ClientHelperForOnlineEndGame.get_instance()
         self.soloGame = True
         if oppUserName != "":
+            self.onlineClient.newGame()
             self.oppUserName = oppUserName
             checkIfLostTread = Thread(target=self.onlineClient.didIWin)
             checkIfLostTread.start()
@@ -91,7 +92,6 @@ class Graphics:
         running = True
         playerWasHit = False
         while running:
-        #    print("is game on " + str(self.onlineClient.getGameOn()))
             # Did the user click the window close button?
             for event in pygame.event.get():
                 if event.type == pygame.USEREVENT:
@@ -110,6 +110,8 @@ class Graphics:
                 keys = pygame.key.get_pressed()
                 # if Escape key pressed exit the game
                 if keys[pygame.K_ESCAPE]:
+                    if not self.soloGame:
+                        self.onlineClient.IHaveLost(self.oppUserName)
                     running = False
 
                 if not self.soloGame:

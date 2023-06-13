@@ -15,6 +15,7 @@ class Camera:
     def retFilePlace(self):
         return self.FACE_IMG_FILE
 
+    #מצלם כל פעם פריים, שם אותו בקובץ שבודקים ומשנה את EMOTION לפיו (אחרי ניתוח רגשות)
     def mainProcess(self):
         lastEmotion = Emotion.EMOTION.START
         self.vc = cv2.VideoCapture(0)

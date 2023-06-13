@@ -103,6 +103,7 @@ def multi_threaded_client(ssl_socket):
             oppUsername = newData
             otherSocket = mapUsersConn.get(oppUsername)
             otherSocket.sendall(str.encode(CODE_SUCCESS))
+            ssl_socket.sendall(str.encode(CODE_SUCCESS))
 
 
         if not data:

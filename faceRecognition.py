@@ -4,6 +4,7 @@ from Emotion import Emotion
 
 class Facial:
 
+    #מחזירה את הרגש שיש בפנים בתמונה שקובץ שהתקבל
     @staticmethod
     def whatFacialExpression(filePlace, img, lastEmotion) -> Emotion.EMOTION:
 

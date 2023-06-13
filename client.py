@@ -5,9 +5,10 @@ import ssl
 class Client:
     _instance = None
 
-    HOST = '127.0.0.1'
-    #HOST = '192.168.7.13'
-    PORT = 2130
+    #HOST = '127.0.0.1'
+    HOST = '192.168.7.13'
+    #HOST = '172.20.10.2'
+    PORT = 2132
     SERVER_CA_CERT_FILE = "./server.crt"
     CODE_LOGIN = "0"
     CODE_SIGN_UP = "1"
@@ -99,14 +100,9 @@ class Client:
         data = res.decode('utf-8')
 
 
-    def connectToAnotherUser(self, username):
-        print("before messega")
-        message = self.CODE_ONLINE_GAME + username
-        print(message)
-        self.ssl_socket.send((str.encode(message)))
-        print("after send")
-        res = self.ssl_socket.recv(1024)
-        print("after recv")
-        data = res.decode('utf-8')
-        print("the other user: " + data)
-        return data
+  #  def connectToAnotherUser(self, username):
+   #     message = self.CODE_ONLINE_GAME + username
+    #    self.ssl_socket.send((str.encode(message)))
+     #   res = self.ssl_socket.recv(1024)
+      #  data = res.decode('utf-8')
+       # return data

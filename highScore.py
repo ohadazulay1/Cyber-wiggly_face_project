@@ -19,8 +19,6 @@ class HighScore:
         self.highScore = self.client.getSelfHighScore(self.username)
 
     def updateHighScore(self, score) -> bool:
-        print(score)
-        print("pre highscore " + str(self.highScore))
         if score > self.highScore:
             self.client.setSelfHighScore(self.username, score)
             self.highScore = score

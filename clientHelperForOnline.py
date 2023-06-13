@@ -25,15 +25,9 @@ class ClientHelperForOnline:
 
 
 
-    def connectToAnotherUser(self, username):
+    def connectToAnotherUser(self, username) -> str:
         message = self.CODE_ONLINE_GAME + username
         self.socket.send((str.encode(message)))
         res = self.socket.recv(1024)
         data = res.decode('utf-8')
-        cp = Camera()
-        camThread = Thread(target=cp.mainProcess)
-        camThread.start()
-
-        gr = Graphics(data)
-        gr.objectsManeger()
-       # return data
+        return data
