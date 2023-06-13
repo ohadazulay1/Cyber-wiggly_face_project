@@ -4,6 +4,7 @@ class commonUtils:
 
     PositionLeftRight = Enum("PositionLeftRight", ["LEFT", "RIGHT"])
 
+    #הופך את השיא מהדאטאבייס (פלואוט) לסטרינג קריא
     @staticmethod
     def get_time_str(score: float) -> str:
         minutes = int(score // 60)

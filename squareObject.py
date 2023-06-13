@@ -27,6 +27,6 @@ class SquareObject:
     def draw(self):
         self.screen.blit(self.objectPhoto,(self.objectX, self.objectY))
 
-    def moveDown(self):
-        self.objectY += 5
+    def moveDown(self, howMuchToMoveDown):
+        self.objectY += howMuchToMoveDown
         self.draw()

@@ -28,13 +28,12 @@ class ServerHelper:
         hashed_password = bcrypt.hashpw(passwordBytes, salt)
         return hashed_password.decode('utf-8')
 
-    def login(self, newData) -> bool:
 
+    def login(self, newData) -> bool:
         loginSuccess = False
         splited_data = newData.split(",")
         username = splited_data[0]
         password = splited_data[1]
-        print("user: " + username + " pass: " + password)
         self.DB_cursor.execute("SELECT password FROM users WHERE username=?", (username,))
         row = self.DB_cursor.fetchone()
         if row: #user found
@@ -72,7 +71,6 @@ class ServerHelper:
         username = newData
         self.DB_cursor.execute("SELECT highScore FROM users WHERE username=?", (username,))
         userHighScore = self.DB_cursor.fetchall()
-        print("highscore: " + str(userHighScore[0][0]))
         return str(userHighScore[0][0])
 
 
@@ -80,7 +78,6 @@ class ServerHelper:
         splited_data = newData.split(",")
         username = splited_data[0]
         newHighScore = splited_data[1]
-        print(newHighScore)
         self.DB_cursor.execute("UPDATE users SET highScore =? WHERE username=?", (newHighScore, username))
         self.DB_connection.commit()
         return "True"

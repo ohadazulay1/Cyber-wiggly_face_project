@@ -12,11 +12,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 from userNameClass import UserNameClass
 from client import Client
-from mainWindow import Ui_MainWindow
-from PyQt5.QtGui import QRegExpValidator
-from PyQt5.QtCore import QRegExp
+from newNainWindow import Ui_MainWindow
+#from PyQt5.QtGui import QRegExpValidator
+#from PyQt5.QtCore import QRegExp
 from PyQt5.QtWidgets import QMessageBox
-
 import re
 from typing import Tuple
 
@@ -142,9 +141,10 @@ class Ui_SignUp(object):
 
 
     def confirmPressed(self, username, password):
-
         if not username or not password:
             self.empty.show()
+            self.someoneWithThisNameExist.hide()
+
         else:
 
             passValid, errMsg = self.validate_password(password)

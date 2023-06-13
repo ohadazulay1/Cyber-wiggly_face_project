@@ -6,13 +6,15 @@ class Client:
     _instance = None
 
     HOST = '127.0.0.1'
-    PORT = 2123
+    #HOST = '192.168.7.13'
+    PORT = 2130
     SERVER_CA_CERT_FILE = "./server.crt"
     CODE_LOGIN = "0"
     CODE_SIGN_UP = "1"
     CODE_HIGH_SCORES = "2"
     CODE_GET_SELF_HIGH_SCORE = "3"
     CODE_SET_SELF_HIGH_SCORE = "4"
+    CODE_ONLINE_GAME = "5"
 
     CODE_RECEIVE_SUCCESS = "0"
     CODE_RECEIVE_FAILED = "1"
@@ -38,8 +40,12 @@ class Client:
     def get_instance():
         if Client._instance is None:
             Client()
-
         return Client._instance
+
+
+    def get_connection(self):
+        return self.ssl_socket
+
 
     def login(self, username, password) -> bool:
         message = self.CODE_LOGIN + username + "," + password
@@ -54,6 +60,7 @@ class Client:
         elif guideNum == self.CODE_RECEIVE_FAILED:
             return False
 
+
     def signUp(self, username, password) -> bool:
         message = self.CODE_SIGN_UP + username + "," + password
         self.ssl_socket.send(str.encode(message))
@@ -66,6 +73,7 @@ class Client:
         elif guideNum == self.CODE_RECEIVE_FAILED:
             return False
 
+
     def topFive(self) -> dict:
         message = self.CODE_HIGH_SCORES
         self.ssl_socket.send(str.encode(message))
@@ -75,6 +83,7 @@ class Client:
         received_dict = pickle.loads(receivedData)
         return received_dict
 
+
     def getSelfHighScore(self, username: str) -> float:
         message = self.CODE_GET_SELF_HIGH_SCORE + username
         self.ssl_socket.send(str.encode(message))
@@ -82,9 +91,22 @@ class Client:
         data = res.decode('utf-8')
         return float(data)
 
+
     def setSelfHighScore(self, username, newHighScore):
         message = self.CODE_SET_SELF_HIGH_SCORE + username + "," + str(newHighScore)
         self.ssl_socket.send(str.encode(message))
         res = self.ssl_socket.recv(1024)
         data = res.decode('utf-8')
 
+
+    def connectToAnotherUser(self, username):
+        print("before messega")
+        message = self.CODE_ONLINE_GAME + username
+        print(message)
+        self.ssl_socket.send((str.encode(message)))
+        print("after send")
+        res = self.ssl_socket.recv(1024)
+        print("after recv")
+        data = res.decode('utf-8')
+        print("the other user: " + data)
+        return data

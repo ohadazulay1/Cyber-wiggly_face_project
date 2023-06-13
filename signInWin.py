@@ -10,10 +10,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from client import Client
-from mainWindow import Ui_MainWindow
 from signUpWin import Ui_SignUp
 from userNameClass import UserNameClass
-
+from newNainWindow import Ui_MainWindow
 
 
 class Ui_firstWindow(object):
@@ -157,7 +156,6 @@ class Ui_firstWindow(object):
             isInDB = self.c.login(self.usernameInput.text(), self.passwordInput.text())
             if isInDB:
                 self.username.setUserName(self.usernameInput.text())
-                print(">>> close event of first window")
                 new_window = Ui_MainWindow(self.firstWindow)
 
             else:

@@ -25,7 +25,6 @@ class Player:
     def moveleft(self):
         self.draw(self.leftX)
         self.currentPos = commonUtils.PositionLeftRight.LEFT
-
         return self.currentPos
 
 

@@ -16,17 +16,23 @@ class HighScore:
         self.client = Client.get_instance()
         self.usernameInstance = UserNameClass.get_instance()
         self.username = self.usernameInstance.getUserName()
+        self.highScore = self.client.getSelfHighScore(self.username)
 
-    def updateHighScore(self, score):
-        if score > self.client.getSelfHighScore(self.username):
+    def updateHighScore(self, score) -> bool:
+        print(score)
+        print("pre highscore " + str(self.highScore))
+        if score > self.highScore:
             self.client.setSelfHighScore(self.username, score)
+            self.highScore = score
+            return True
+        else:
+            return False
 
     def draw(self):
         font = pygame.font.Font(None, 50)
-        highScoreText = commonUtils.get_time_str(self.client.getSelfHighScore(self.username))
+        highScoreText = commonUtils.get_time_str(self.highScore)
 
         highScoreToPresent = self.username + " high Score: " + highScoreText
         text = font.render(highScoreToPresent, True, self.TEXT_COLOR, self.BG_COLOR)
 
         self.screen.blit(text, (self.X_POS, self.Y_POS))
-
