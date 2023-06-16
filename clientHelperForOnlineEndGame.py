@@ -23,14 +23,12 @@ class ClientHelperForOnlineEndGame:
 
     def IHaveLost(self, oppUserName):
         self.gameOver()
-        print("i lost")
         message = self.CODE_ONLINE_GAME_ENDED + oppUserName
         self.socket.send((str.encode(message)))
 
     def didIWin(self):
         res = self.socket.recv(1024)
         if self.gameOn:
-            print("i won")
             self.gameOver()
 
         #data = res.decode('utf-8')

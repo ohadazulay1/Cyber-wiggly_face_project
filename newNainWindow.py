@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.pic_label.setGeometry(QtCore.QRect(660, 290, 491, 321))
         self.pic_label.setText("")
         self.pic_label.setPixmap(QtGui.QPixmap(
-            "../../OneDrive/תמונות/forProject/patches-smiley-face-happy-sad-venn_grande.webp"))
+            "./patches-smiley-face-happy-sad-venn_grande.webp"))
         self.pic_label.setObjectName("pic_label")
         self.MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(self.MainWindow)

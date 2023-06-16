@@ -1,10 +1,5 @@
-from threading import Thread
-
-from computerCam import Camera
 
 from client import Client
-from graphics import Graphics
-
 
 class ClientHelperForOnline:
     _instance = None

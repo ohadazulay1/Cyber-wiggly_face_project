@@ -24,7 +24,6 @@ class Graphics:
     start_speed = 3 #מהירות התחלתית
 
     WHITE = (255, 255, 255)
-    onlinePlayerWasHit = False
 
     def __init__(self, oppUserName):
         self.onlineClient = ClientHelperForOnlineEndGame.get_instance()
@@ -124,8 +123,7 @@ class Graphics:
                          #   if keys[pygame.K_ESCAPE]:
                           #      running = False
 
-                #  if self.onlinePlayerWasHit:
-               #     MessageToPresent.youWonMassage(self.screen, self.oppUserName)
+
 
 
 
@@ -174,22 +172,20 @@ class Graphics:
                                     print("highscorebroke; " + str(highScoreBroke))
                                     MessageToPresent.drawHitMessage(self.screen, highScoreBroke)
                                     if highScoreBroke:
-                                        self.stopwatch.draw()
                                         self.highScorePressent.draw()
                                 break
                             else:
                                 self.all_objects.remove(singleObject)
 
-                    pygame.display.update()
-                    self.clock.tick(60)
-
-                    self.screen.fill(self.WHITE)
 
                     self.stopwatch.draw()
-            #        MessageToPresent.oppWonMassage(self.screen, "lol")
                     MessageToPresent.drawQuitMessage(self.screen)
                     if not self.soloGame:
                         MessageToPresent.drawOppName(self.screen, self.oppUserName)
                     else:
                         self.highScorePressent.draw()
+
+                    pygame.display.update()
+                    self.clock.tick(60)
+                    self.screen.fill(self.WHITE)
         pygame.quit()

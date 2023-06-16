@@ -7,7 +7,8 @@ from onlineUsers import OnlineUsers
 
 ServerSideSocket = socket.socket()
 HOST = '127.0.0.1'
-PORT = 2130
+#HOST = '172.20.10.9'
+PORT = 2133
 ThreadCount = 0
 LOGIN_NUM = 0
 SIGN_UP_NUM = 1

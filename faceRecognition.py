@@ -1,16 +1,14 @@
 from fer import FER
-import cv2
 from Emotion import Emotion
 
 class Facial:
 
     #מחזירה את הרגש שיש בפנים בתמונה שקובץ שהתקבל
     @staticmethod
-    def whatFacialExpression(filePlace, img, lastEmotion) -> Emotion.EMOTION:
+    def whatFacialExpression(frame, lastEmotion) -> Emotion.EMOTION:
 
-        img = cv2.imread(filePlace)
         detector = FER()
-        emotions = detector.detect_emotions(img)
+        emotions = detector.detect_emotions(frame)
 
         if emotions:
             sad_value = emotions[0]['emotions']['sad']

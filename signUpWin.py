@@ -72,6 +72,13 @@ class Ui_SignUp(object):
         self.someoneWithThisNameExist.setFont(font)
         self.someoneWithThisNameExist.setObjectName("wrongUsernameOrPassword")
 
+        self.notValidPassword = QtWidgets.QLabel(self.centralwidget)
+        self.notValidPassword.setGeometry(QtCore.QRect(200, 495, 510, 31))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.notValidPassword.setFont(font)
+        self.notValidPassword.setObjectName("notAValidPassword")
+
         self.empty = QtWidgets.QLabel(self.centralwidget)
         self.empty.setGeometry(QtCore.QRect(200, 495, 500, 31))
         font = QtGui.QFont()
@@ -109,7 +116,7 @@ class Ui_SignUp(object):
         self.picture.setGeometry(QtCore.QRect(1180, 280, 501, 331))
         self.picture.setText("")
         self.picture.setPixmap(QtGui.QPixmap(
-            "../../OneDrive/תמונות/forProject/patches-smiley-face-happy-sad-venn_grande.webp"))
+            "./patches-smiley-face-happy-sad-venn_grande.webp"))
         self.picture.setObjectName("picture")
         self.MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(self.MainWindow)
@@ -135,6 +142,8 @@ class Ui_SignUp(object):
         self.empty.hide()
         self.someoneWithThisNameExist.setText((_translate("firstWindow", "there is someone with the same username in the system, try a different one")))
         self.someoneWithThisNameExist.hide()
+        self.notValidPassword.setText((_translate("firstWindow", "password must contain a number, lower and upper case, minimum of 8 chars")))
+        self.notValidPassword.hide()
         self.createYourPasswordLabel.setText(_translate("MainWindow", "create your password:"))
         self.confirmButton.setText(_translate("MainWindow", "confirm"))
         self.wigglyFaceCaption.setText(_translate("MainWindow", "wiggly face"))
@@ -143,11 +152,12 @@ class Ui_SignUp(object):
     def confirmPressed(self, username, password):
         if not username or not password:
             self.empty.show()
+            self.notValidPassword.hide()
             self.someoneWithThisNameExist.hide()
 
         else:
 
-            passValid, errMsg = self.validate_password(password)
+            passValid = self.validate_password(password)
             if passValid:
                 c = Client.get_instance()
                 usernameOfUser = UserNameClass.get_instance()
@@ -157,22 +167,22 @@ class Ui_SignUp(object):
                     new_window = Ui_MainWindow(self.MainWindow)
                 else:
                     self.empty.hide()
+                    self.notValidPassword.hide()
                     self.someoneWithThisNameExist.show()
             else:
-                msg = QMessageBox()
-                msg.setText(errMsg)
-                msg.setStandardButtons(QMessageBox.Close)
-                #msg.setInformativeText(errMsg)
+                self.empty.hide()
+                self.someoneWithThisNameExist.hide()
+                self.notValidPassword.show()
 
-                x = msg.exec_()
 
-    def validate_password(self, password) -> Tuple[bool,str]:
+
+    def validate_password(self, password) -> bool:
         if len(password) < 8:
-            return False, "Password should include at least 8 characters"
+            return False# "Password should include at least 8 characters"
         if not re.search("[a-z]", password):
-            return False, "Password should include at least one lowercase letter"
+            return False# "Password should include at least one lowercase letter"
         if not re.search("[A-Z]", password):
-            return False, "Password should include at least one uppercase letter"
+            return False# "Password should include at least one uppercase letter"
         if not re.search("[0-9]", password):
-            return False, "Password should include at least one number"
-        return True, ""
+            return False# "Password should include at least one number"
+        return True
