@@ -1,17 +1,16 @@
 
 from cv2 import *
 import cv2
-import time
 from faceRecognition import Facial
 from Emotion import Emotion
 
 class Camera:
-    CAPTURE_TIME_INTERVAL = 100  # in milli-seconds
+    CAPTURE_TIME_INTERVAL = 50  # in milli-seconds - 20 times in a second
 
     def __init__(self):
         self.emotion = Emotion.get_instance()
 
-    #מצלם כל פעם פריים, שם אותו בקובץ שבודקים ומשנה את EMOTION לפיו (אחרי ניתוח רגשות)
+    #מצלם כל פעם פריים, שם אותו כפרמטר לפוקציה שבודקת את הרגש ומשנה את EMOTION לפיו (אחרי ניתוח רגשות)
     def mainProcess(self):
         lastEmotion = Emotion.EMOTION.START
         self.vc = cv2.VideoCapture(0)
@@ -29,8 +28,8 @@ class Camera:
                 lastEmotion = self.emotion.getEmotion()
 
             key = cv2.waitKey(self.CAPTURE_TIME_INTERVAL)
-            if key == 27:  # exit on ESC
-                break
+        #    if key == 27:  # exit on ESC
+         #       break
 
         self.finish()
 
